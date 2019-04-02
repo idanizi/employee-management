@@ -50,6 +50,11 @@ export class EmployeesList extends Component {
         this.setState({ filter });
     }
 
+    handleClearFilters() {
+        // todo: add refs and clear input-txt and filter drop-down
+        this.setState({ filter: '', query: '' })
+    }
+
     render() {
 
         let { query, filter, employees } = this.state;
@@ -73,11 +78,16 @@ export class EmployeesList extends Component {
                         onChange={evt => this.handleQueryChanged(evt)}
                     />
 
-                    <select onChange={evt => handleFilterChanged(evt)}>
+                    <select onChange={evt => this.handleFilterChanged(evt)}>
                         <option selected disabled value=''>Filter By Status...</option>
                         {Object.entries(Statuses).map(([value, label], key) =>
                             <option {...{ value, key }}>{label}</option>)}
                     </select>
+
+                    {/* 
+                    // optional optional:
+                    <button onClick={this.handleClearFilters.bind(this)}>Clear</button> 
+                    */}
                 </div>
 
                 <div className="list-content">

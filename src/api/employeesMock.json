@@ -1,0 +1,20 @@
+[
+    {
+        "_id": "idString12345",
+        "username": "Idan@test.com",
+        "displayName": "Idan",
+        "status": "BUSINESS_TRIP"
+    },
+    {
+        "_id": "idString12334",
+        "username": "Tom@test.com",
+        "displayName": "Tom",
+        "status": "WORKING"
+    },
+    {
+        "_id": "idString12346",
+        "username": "Ofir@test.com",
+        "displayName": "Ofir",
+        "status": "LUNCH_TIME"
+    }
+]
