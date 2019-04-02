@@ -1,25 +1,33 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
+import { Guest, Main } from './Components';
 
 class App extends Component {
+
+  state = {
+    connected: false,
+    username: 'default-username',
+    status: 'default-status',
+  }
+
+  handleUserNameChanged(username) {
+    this.setState({ username });
+  }
+
   render() {
+
+    let { connected, username, status } = this.state;
+
+    // todo: delete test
+    connected = true;
+
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+        {
+          connected ?
+            <Main username={username} status={status} /> :
+            <Guest usernameChangeHandler={this.handleUserNameChanged.bind(this)} />
+        }
       </div>
     );
   }
