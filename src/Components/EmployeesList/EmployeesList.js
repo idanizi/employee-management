@@ -44,10 +44,10 @@ export class EmployeesList extends Component {
         this.setState({ query });
     }
 
-    handleOnFilterChanged(evt) {
+    handleFilterChanged(evt) {
         let filter = evt.target.value;
 
-        this.setState({filter});
+        this.setState({ filter });
     }
 
     render() {
@@ -73,7 +73,7 @@ export class EmployeesList extends Component {
                         onChange={evt => this.handleQueryChanged(evt)}
                     />
 
-                    <select>
+                    <select onChange={evt => handleFilterChanged(evt)}>
                         <option selected disabled value=''>Filter By Status...</option>
                         {Object.entries(Statuses).map(([value, label], key) =>
                             <option {...{ value, key }}>{label}</option>)}

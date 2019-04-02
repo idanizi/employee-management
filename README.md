@@ -1,4 +1,8 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Employee Management System
+assignment for checkpoint front-end open position
+
+## Author
+**idan izicovich** - <idanizi@gmail.com>
 
 ## Available Scripts
 
