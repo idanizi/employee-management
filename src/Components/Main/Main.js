@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { EmployeesList } from '../';
 import { Statuses } from '../../Models'
+import './Main.css';
 
 function usernameToHelloName(username) {
     // todo: build regex to return hello formated name
@@ -9,7 +10,7 @@ function usernameToHelloName(username) {
 
 const UpdateStatus = (props) => (
     <div className="update-status">
-        <h5>Update My Current Status:</h5>
+        <h3>Update My Current Status:</h3>
         <select onChange={props.updateStatusHandler}>
             {Object.entries(Statuses).map(([value, label], key) =>
                 <option {...{ value, key }}>{label}</option>)}
@@ -29,12 +30,10 @@ export class Main extends Component {
 
         return (
             <div className="Main">
-                <h2>Hello {usernameToHelloName(username)}, You are {status.toLowerCase()} </h2>
+                <h1>Hello {usernameToHelloName(username)}, You are {status.toLowerCase()} </h1>
 
                 <UpdateStatus {...{ updateStatusHandler }} />
-
                 <EmployeesList />
-                <div></div>
             </div>
         );
     }

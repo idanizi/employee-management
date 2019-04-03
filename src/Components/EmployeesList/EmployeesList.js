@@ -69,10 +69,12 @@ export class EmployeesList extends Component {
         };
 
         return (
-            <div className='content'>
+            <div className="EmployeesList">
+                <hr />
+
                 <h3>List of Employees:</h3>
 
-                <div>
+                <div className='input-group'>
                     <input
                         type="text"
                         placeholder="Search by name..."
