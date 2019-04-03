@@ -6,27 +6,33 @@ class App extends Component {
 
   state = {
     connected: false,
-    username: 'default-username',
-    status: 'default-status',
+    username: '',
+    status: '',
   }
 
-  handleUserNameChanged(username) {
+  usernameChangedHandler = (username) => {
     this.setState({ username });
+  }
+
+  statusChangedHandler = (status) => this.setState({ status });
+
+  loginHandler = () => {
+    if (this.state.username.length > 0)
+      this.setState({ connected: true });
   }
 
   render() {
 
     let { connected, username, status } = this.state;
-
-    // todo: delete test
-    connected = true;
+    const { usernameChangedHandler, statusChangedHandler,
+      loginHandler } = this;
 
     return (
       <div className="App">
         {
           connected ?
-            <Main username={username} status={status} /> :
-            <Guest usernameChangeHandler={this.handleUserNameChanged.bind(this)} />
+            <Main {...{ statusChangedHandler, username, status }} /> :
+            <Guest {...{ usernameChangedHandler, loginHandler }} />
         }
       </div>
     );

@@ -11,7 +11,7 @@ function usernameToHelloName(username) {
 const UpdateStatus = (props) => (
     <div className="update-status">
         <h3>Update My Current Status:</h3>
-        <select onChange={props.updateStatusHandler}>
+        <select onChange={props.updateStatusHandler} value={props.status}>
             {Object.entries(Statuses).map(([value, label], key) =>
                 <option {...{ value, key }}>{label}</option>)}
         </select>
@@ -32,7 +32,7 @@ export class Main extends Component {
             <div className="Main">
                 <h1>Hello {usernameToHelloName(username)}, You are {status.toLowerCase()} </h1>
 
-                <UpdateStatus {...{ updateStatusHandler }} />
+                <UpdateStatus {...{ updateStatusHandler, status }} />
                 <EmployeesList />
             </div>
         );

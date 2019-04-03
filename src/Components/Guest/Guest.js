@@ -4,21 +4,25 @@ import './Guest.css';
 export class Guest extends Component {
 
     handleSubmit(evt) {
-        let username = evt.target.value;
-        this.props.usernameChangeHandler(username);
+        evt.preventDefault();
+        this.props.loginHandler();
     }
 
     render() {
+        const {usernameChangedHandler} = this.props;
+
         return (
             <div className="container">
                 <h1>Welcome to MyWorkStatus</h1>
                 <div className="input-group">
-                    <input type="text"
-                        className="input-txt"
-                        onSubmit={evt => this.handleSubmit(evt)}
-                        placeholder="My Username..." />
+                    <form onSubmit={evt => this.handleSubmit(evt)}>
+                        <input type="text"
+                            className="input-txt"
+                            placeholder="My Username..."
+                            onChange={(evt) => usernameChangedHandler(evt.target.value)} />
 
-                    <button className="login-btn">Login</button>
+                        <button type="submit" className="login-btn">Login</button>
+                    </form>
                 </div>
             </div>
         );

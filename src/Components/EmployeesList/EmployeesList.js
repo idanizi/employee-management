@@ -82,7 +82,7 @@ export class EmployeesList extends Component {
                     />
 
                     <select onChange={evt => this.handleFilterChanged(evt)}>
-                        <option selected disabled value=''>Filter By Status...</option>
+                        <option value='' defaultValue>Filter By Status...</option>
                         {Object.entries(Statuses).map(([value, label], key) =>
                             <option {...{ value, key }}>{label}</option>)}
                     </select>
@@ -95,12 +95,14 @@ export class EmployeesList extends Component {
 
                 <div>
                     <table>
-                        {employees.filter(filterEmployee).map(emp => (
-                            <tr>
-                                <td>
-                                {`${emp.displayName} (${Statuses[emp.status]})`}
-                                </td>
-                            </tr>))}
+                        <tbody>
+                            {employees.filter(filterEmployee).map((emp, key) => (
+                                <tr {...{ key }}>
+                                    <td>
+                                        {`${emp.displayName} (${Statuses[emp.status]})`}
+                                    </td>
+                                </tr>))}
+                        </tbody>
                     </table>
                 </div>
             </div>
