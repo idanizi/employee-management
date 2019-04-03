@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Statuses } from '../../Models';
+import './EmployeesList.css';
 
 //todo: delete test
 const employeesMock = [
@@ -68,10 +69,10 @@ export class EmployeesList extends Component {
         };
 
         return (
-            <div className="EmployeesList">
+            <div className='content'>
                 <h3>List of Employees:</h3>
 
-                <div className="input-group">
+                <div>
                     <input
                         type="text"
                         placeholder="Search by name..."
@@ -90,13 +91,15 @@ export class EmployeesList extends Component {
                     */}
                 </div>
 
-                <div className="list-content">
-                    <ui>
+                <div>
+                    <table>
                         {employees.filter(filterEmployee).map(emp => (
-                            <ul>
+                            <tr>
+                                <td>
                                 {`${emp.displayName} (${Statuses[emp.status]})`}
-                            </ul>))}
-                    </ui>
+                                </td>
+                            </tr>))}
+                    </table>
                 </div>
             </div>
         );

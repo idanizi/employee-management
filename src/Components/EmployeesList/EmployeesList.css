@@ -1,0 +1,13 @@
+table {
+    border-collapse: collapse
+}
+
+table, tr, td {
+    border: 1px solid black;
+    text-align: left;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+}
