@@ -23,14 +23,14 @@ export class Main extends Component {
 
     render() {
 
-        let { username, status, updateStatusHandler } = this.props;
+        let { displayName, status, updateStatusHandler } = this.props;
 
         // todo: delete test
         updateStatusHandler = _ => console.log('update status handler');
 
         return (
             <div className="Main">
-                <h1>Hello {usernameToHelloName(username)}, You are {status.toLowerCase()} </h1>
+                <h1>Hello {displayName}, you are {Statuses[status].toLowerCase()} </h1>
 
                 <UpdateStatus {...{ updateStatusHandler, status }} />
                 <EmployeesList />
