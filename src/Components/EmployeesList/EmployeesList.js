@@ -1,41 +1,12 @@
 import React, { Component } from "react";
 import { Statuses } from '../../Models';
 import './EmployeesList.css';
-
-//todo: delete test
-const employeesMock = [
-    {
-        _id: 'idString12345',
-        username: 'Idan@test.com',
-        displayName: 'Idan',
-        status: 'BUSINESS_TRIP'
-    },
-    {
-        _id: 'idString12334',
-        username: 'Tom@test.com',
-        displayName: 'Tom',
-        status: 'WORKING'
-    },
-    {
-        _id: 'idString12346',
-        username: 'Ofir@test.com',
-        displayName: 'Ofir',
-        status: 'LUNCH_TIME'
-    },
-]
+import EmployeeApi from "../../Api/EmployeeApi";
 
 export class EmployeesList extends Component {
-
     state = {
         query: '',
         filter: '',
-        employees: [],
-    }
-
-    componentDidMount() {
-
-        // todo: delete mock
-        this.setState({ employees: employeesMock });
     }
 
     handleQueryChanged(evt) {
@@ -58,7 +29,9 @@ export class EmployeesList extends Component {
 
     render() {
 
-        let { query, filter, employees } = this.state;
+        const { query, filter } = this.state;
+
+        const { employees } = this.props;
 
         const filterEmployee = (emp) => {
             return (

@@ -3,15 +3,10 @@ import { EmployeesList } from '../';
 import { Statuses } from '../../Models'
 import './Main.css';
 
-function usernameToHelloName(username) {
-    // todo: build regex to return hello formated name
-    return username;
-}
-
 const UpdateStatus = (props) => (
     <div className="update-status">
         <h3>Update My Current Status:</h3>
-        <select onChange={props.updateStatusHandler} value={props.status}>
+        <select onChange={evt => props.statusChangedHandler(evt.target.value)} value={props.status}>
             {Object.entries(Statuses).map(([value, label], key) =>
                 <option {...{ value, key }}>{label}</option>)}
         </select>
@@ -23,17 +18,14 @@ export class Main extends Component {
 
     render() {
 
-        let { displayName, status, updateStatusHandler } = this.props;
-
-        // todo: delete test
-        updateStatusHandler = _ => console.log('update status handler');
+        let { displayName, status, statusChangedHandler, employees } = this.props;
 
         return (
             <div className="Main">
-                <h1>Hello {displayName}, you are {Statuses[status].toLowerCase()} </h1>
+                <h1>Hello {displayName}, you are on {Statuses[status].toLowerCase().replace(/\s*on\s*/, '')} </h1>
 
-                <UpdateStatus {...{ updateStatusHandler, status }} />
-                <EmployeesList />
+                <UpdateStatus {...{ statusChangedHandler, status }} />
+                <EmployeesList {...{ employees }} />
             </div>
         );
     }

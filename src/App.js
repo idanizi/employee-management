@@ -3,6 +3,11 @@ import './App.css';
 import { Guest, Main } from './Components';
 import EmployeeApi from "./Api/EmployeeApi";
 
+function usernameToDisplayName(username) {
+  // todo: build regex to return hello formated name
+  return username;
+}
+
 class App extends Component {
 
   state = {
@@ -10,31 +15,51 @@ class App extends Component {
     username: '',
     status: '',
     displayName: '',
+    _id: '',
+    employees: [],
   }
 
   usernameChangedHandler = (username) => {
     this.setState({ username });
   }
 
-  statusChangedHandler = (status) => this.setState({ status });
+  statusChangedHandler = async (status) => {
+    this.setState({ status });
+    await EmployeeApi.updateOne(this.state._id, { status })
+    this.updateEmployeesState();
+  }
 
-  loginHandler = () => {
+  updateEmployeesState = () => {
+    EmployeeApi.find({})
+      .then(employees => this.setState({ employees }))
+  }
+
+  loginHandler = async () => {
     let { username } = this.state;
     if (username.length > 0) {
-      EmployeeApi.findOne({ username })
-        .then(emp => {
-          if (emp) {
-            let { displayName, status } = emp;
-            console.log({emp})
-            this.setState({ displayName, status, connected: true })
-          }
-        })
+      let emp = await EmployeeApi.findOne({ username });
+
+      if (!emp) {
+        /* user not found, create new user */
+        emp = {
+          username,
+          displayName: usernameToDisplayName(username),
+          status: 'WORKING',
+        }
+      }
+
+      emp = await EmployeeApi.create(emp);
+
+      console.log({ emp });
+
+      await new Promise(res => this.setState({ ...emp, connected: true }, res()));
+      this.updateEmployeesState();
     }
   }
 
   render() {
 
-    let { connected, displayName, status } = this.state;
+    let { connected, displayName, status, employees } = this.state;
     const { usernameChangedHandler, statusChangedHandler,
       loginHandler } = this;
 
@@ -42,7 +67,7 @@ class App extends Component {
       <div className="App">
         {
           connected ?
-            <Main {...{ statusChangedHandler, displayName, status }} /> :
+            <Main {...{ statusChangedHandler, displayName, status, employees }} /> :
             <Guest {...{ usernameChangedHandler, loginHandler }} />
         }
       </div>
