@@ -46,9 +46,10 @@ class App extends Component {
           displayName: usernameToDisplayName(username),
           status: 'WORKING',
         }
+        
+        emp = await EmployeeApi.create(emp);
       }
 
-      emp = await EmployeeApi.create(emp);
 
       console.log({ emp });
 
