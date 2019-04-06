@@ -1,5 +1,3 @@
-
-
 export const Statuses = {
     WORKING: 'Working',
     ON_VACATION: 'On Vacation',

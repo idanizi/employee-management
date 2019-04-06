@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
-import { Guest, Main } from './Components';
-import EmployeeApi from "./Api/EmployeeApi";
+import EmployeeApi from "../api/EmployeeApi";
+import { Main, Guest } from "../components";
 
 function usernameToDisplayName(username) {
   // todo: build regex to return hello formated name
@@ -46,7 +46,7 @@ class App extends Component {
           displayName: usernameToDisplayName(username),
           status: 'WORKING',
         }
-        
+
         emp = await EmployeeApi.create(emp);
       }
 

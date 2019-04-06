@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { EmployeesList } from '../';
-import { Statuses } from '../../Models'
+import { Statuses } from '../../models'
 import './Main.css';
 
 const UpdateStatus = (props) => (

@@ -1,3 +1,3 @@
-export * from './Guest/Guest'
-export * from './Main/Main'
-export * from './EmployeesList/EmployeesList'
+export * from './guest/Guest'
+export * from './main/Main'
+export * from './employeesList/EmployeesList'

@@ -1,7 +1,6 @@
 import React, { Component } from "react";
-import { Statuses } from '../../Models';
+import { Statuses } from '../../models';
 import './EmployeesList.css';
-import EmployeeApi from "../../Api/EmployeeApi";
 
 export class EmployeesList extends Component {
     state = {
