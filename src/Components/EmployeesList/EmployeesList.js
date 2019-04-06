@@ -1,8 +1,12 @@
 import React, { Component } from "react";
 import { Statuses } from '../../models';
 import './EmployeesList.css';
+import UserContext from "../../contexts/user-context";
 
 export class EmployeesList extends Component {
+
+    static contextType = UserContext;
+
     state = {
         query: '',
         filter: '',
@@ -30,7 +34,7 @@ export class EmployeesList extends Component {
 
         const { query, filter } = this.state;
 
-        const { employees } = this.props;
+        const { employees } = this.context;
 
         const filterEmployee = (emp) => {
             return (

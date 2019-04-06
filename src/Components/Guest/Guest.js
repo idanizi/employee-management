@@ -1,15 +1,19 @@
 import React, { Component } from "react";
 import './Guest.css';
+import UserContext from "../../contexts/user-context";
 
 export class Guest extends Component {
 
+    static contextType = UserContext;
+
     handleSubmit(evt) {
         evt.preventDefault();
-        this.props.loginHandler();
+        this.context.loginHandler();
     }
 
     render() {
-        const {usernameChangedHandler} = this.props;
+
+        const {usernameChangedHandler} = this.context;
 
         return (
             <div className="container">

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import EmployeeApi from "../api/EmployeeApi";
 import { Main, Guest } from "../components";
+import UserContext from '../contexts/user-context';
 
 function usernameToDisplayName(username) {
   // todo: build regex to return hello formated name
@@ -19,58 +20,61 @@ class App extends Component {
     employees: [],
   }
 
-  usernameChangedHandler = (username) => {
-    this.setState({ username });
-  }
+  events = {
 
-  statusChangedHandler = async (status) => {
-    this.setState({ status });
-    await EmployeeApi.updateOne(this.state._id, { status })
-    this.updateEmployeesState();
-  }
+    usernameChangedHandler: (username) => {
+      this.setState({ username });
+    },
 
-  updateEmployeesState = () => {
-    EmployeeApi.find({})
-      .then(employees => this.setState({ employees }))
-  }
+    statusChangedHandler: async (status) => {
+      this.setState({ status });
+      await EmployeeApi.updateOne(this.state._id, { status })
+      this.events.updateEmployeesState();
+    },
 
-  loginHandler = async () => {
-    let { username } = this.state;
-    if (username.length > 0) {
-      let emp = await EmployeeApi.findOne({ username });
+    updateEmployeesState: () => {
+      EmployeeApi.find({})
+        .then(employees => this.setState({ employees }))
+    },
 
-      if (!emp) {
-        /* user not found, create new user */
-        emp = {
-          username,
-          displayName: usernameToDisplayName(username),
-          status: 'WORKING',
+    loginHandler: async () => {
+      let { username } = this.state;
+      if (username.length > 0) {
+        let emp = await EmployeeApi.findOne({ username });
+
+        if (!emp) {
+          /* user not found, create new user */
+          emp = {
+            username,
+            displayName: usernameToDisplayName(username),
+            status: 'WORKING',
+          }
+
+          emp = await EmployeeApi.create(emp);
         }
 
-        emp = await EmployeeApi.create(emp);
+
+        console.log({ emp });
+
+        await new Promise(res => this.setState({ ...emp, connected: true }, res()));
+        this.events.updateEmployeesState();
       }
+    },
 
-
-      console.log({ emp });
-
-      await new Promise(res => this.setState({ ...emp, connected: true }, res()));
-      this.updateEmployeesState();
-    }
   }
-
   render() {
 
-    let { connected, displayName, status, employees } = this.state;
-    const { usernameChangedHandler, statusChangedHandler,
-      loginHandler } = this;
+    let { connected } = this.state;
 
     return (
       <div className="App">
-        {
-          connected ?
-            <Main {...{ statusChangedHandler, displayName, status, employees }} /> :
-            <Guest {...{ usernameChangedHandler, loginHandler }} />
-        }
+        <UserContext.Provider value={{ ...this.state, ...this.events }}>
+          {
+            connected ?
+              <Main /> :
+              <Guest />
+          }
+        </UserContext.Provider>
       </div>
     );
   }
