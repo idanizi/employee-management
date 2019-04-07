@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { EmployeesList } from '../';
 import { Statuses } from '../../models'
 import './Main.css';
+import { connect } from 'react-redux';
+import * as employeeActions from '../../redux/actions/employee-actions'
 
 const UpdateStatus = (props) => (
     <div className="update-status">
@@ -14,19 +16,25 @@ const UpdateStatus = (props) => (
 )
 
 
-export class Main extends Component {
+class Main extends Component {
 
     render() {
 
-        let { displayName, status, statusChangedHandler, employees } = this.props;
-
+        let { statusChangedHandler, user } = this.props;
+        let { displayName, status, _id } = user;
         return (
             <div className="Main">
                 <h1>Hello {displayName}, you are on {Statuses[status].toLowerCase().replace(/\s*on\s*/, '')} </h1>
 
-                <UpdateStatus {...{ statusChangedHandler, status }} />
-                <EmployeesList {...{ employees }} />
+                <UpdateStatus {...{ statusChangedHandler: status => statusChangedHandler({ status, _id }), status }} />
+                <EmployeesList />
             </div>
         );
     }
 }
+
+const mapDispatch = {
+    statusChangedHandler: employeeActions.updateEmployeeStatus,
+}
+
+export default connect(state => ({ user: state.user }), mapDispatch)(Main);

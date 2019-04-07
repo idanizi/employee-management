@@ -1,8 +1,15 @@
 import React, { Component } from "react";
 import { Statuses } from '../../models';
 import './EmployeesList.css';
+import { connect } from "react-redux";
+import * as employeeActions from "../../redux/actions/employee-actions";
 
-export class EmployeesList extends Component {
+class EmployeesList extends Component {
+
+    componentDidMount = () => {
+        this.props.loadAllEmployees();
+    }
+
     state = {
         query: '',
         filter: '',
@@ -81,3 +88,8 @@ export class EmployeesList extends Component {
         );
     }
 }
+
+export default connect(
+    state => ({ employees: state.employees }),
+    {...employeeActions}
+)(EmployeesList);

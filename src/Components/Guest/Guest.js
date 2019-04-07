@@ -1,7 +1,9 @@
 import React, { Component } from "react";
+import { connect } from 'react-redux';
 import './Guest.css';
+import * as userActions from "../../redux/actions/user-actions";
 
-export class Guest extends Component {
+class Guest extends Component {
 
     handleSubmit(evt) {
         evt.preventDefault();
@@ -9,7 +11,7 @@ export class Guest extends Component {
     }
 
     render() {
-        const {usernameChangedHandler} = this.props;
+        const { usernameChangedHandler } = this.props;
 
         return (
             <div className="container">
@@ -28,3 +30,10 @@ export class Guest extends Component {
         );
     }
 }
+
+const mapDispatch = (dispatch, ownProps) => ({
+    usernameChangedHandler: (username) => dispatch(userActions.changeUserName(username)),
+    loginHandler: () => dispatch(userActions.loadOneEmployee({username: ownProps.username}))
+})
+
+export default connect(x => x, mapDispatch)(Guest);

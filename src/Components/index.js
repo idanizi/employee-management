@@ -1,3 +1,3 @@
-export * from './guest/Guest'
-export * from './main/Main'
-export * from './employeesList/EmployeesList'
+export { default as Guest } from './guest/Guest'
+export { default as Main } from './main/Main'
+export { default as EmployeesList } from './employeesList/EmployeesList'
