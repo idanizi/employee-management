@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import EmployeeApi from "../api/EmployeeApi";
+import EmployeeApi from "../api/employee-api";
 import { Main, Guest } from "../components";
 
 function usernameToDisplayName(username) {

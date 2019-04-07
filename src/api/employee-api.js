@@ -1,5 +1,5 @@
-import { baseApiUrl } from "./ApiUtils";
-import ApiMock from "./ApiMock";
+import { baseApiUrl } from "./api-utils";
+import ApiMock from "./mock/api-mock";
 
 const route = ''; // todo: should be '/employee' when i have server & db
 

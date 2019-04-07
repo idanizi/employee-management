@@ -3,8 +3,7 @@ import uuid from "uuid/v4";
 
 // import { get } from 'http';
 
-/** @type {[]} */
-let dbMock = require('./employeesMock.json');
+let employees = require('./db-mock.json').employees;
 
 const areEqualKeyValue = (x, params, key) => {
     if (isString(x[key])) {
@@ -20,7 +19,7 @@ class ApiMock {
 
     get = async (url, params) => {
         if (params) {
-            let result = [...dbMock];
+            let result = [...employees];
 
             for (let key in params) {
                 result = result
@@ -30,20 +29,20 @@ class ApiMock {
             return result
         }
 
-        return dbMock;
+        return employees;
     }
 
     post = async emp => {
         if(!emp._id)
             emp._id = uuid();
         
-        dbMock.push(emp);
+        employees.push(emp);
         
         return emp;
     };
 
     put = async (params, data) => {
-        const record = dbMock.find(x =>
+        const record = employees.find(x =>
             Object.keys(params).every(key =>
                 areEqualKeyValue(x, params, key)));
 
@@ -55,7 +54,7 @@ class ApiMock {
     }
 
     patch = async (params, data) => {
-        const records = dbMock.filter(x =>
+        const records = employees.filter(x =>
             Object.keys(params).every(key =>
                 areEqualKeyValue(x, params, key)));
 
